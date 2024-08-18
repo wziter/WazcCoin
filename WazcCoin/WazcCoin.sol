@@ -14,7 +14,6 @@ contract WazcCoin is ERC20 {
 
     uint64 constant STAKEVALUE = 1 ether;
     uint8 constant MintCoinNumber = 10;
-   
     
     event LogStakeAddress(address addr);
     
