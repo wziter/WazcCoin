@@ -10,11 +10,6 @@ contract WazcCoin is ERC20 {
         _stakeAddress = stakeManageAddr;
     }
 
-    // event LogReceive(address account, uint256 amount);
-    // receive() external payable {
-    //     emit LogReceive(msg.sender, msg.value);
-    // }
-
     mapping (address => uint256) private _stake;
 
     uint64 constant STAKEVALUE = 1 ether;
