@@ -98,7 +98,7 @@ contract ERC20 is IERC20{
         return true;
     }
 
-    function _mint(address _account, uint256 _amount) internal {
+    function _mint(address _account, uint256 _amount) internal returns (bool) {
         if (_account == address(0)) {
             revert ZeroAddress();
         }
@@ -106,6 +106,7 @@ contract ERC20 is IERC20{
         _totalSupply += _amount;
         _balances[_account] += _amount;
         emit Transfer(address(0), _account, _amount);
+        return true;
     }
 
     function _burn(address _account, uint256 _amount) internal {
