@@ -19,6 +19,7 @@ contract WazcCoin is ERC20 {
 
     error notEnoughStake(uint256 amount);
     error notEnoughValue(uint256 value, uint256 amount);
+    error callFailed(address _to, uint256 amount);
 
     constructor(address stakeManageAddr) ERC20("WazcCoin", "WAZC", DECIMAL){
         _stakeAddress = stakeManageAddr;
@@ -37,7 +38,11 @@ contract WazcCoin is ERC20 {
         }
 
         emit LogStakeAddress(_stakeAddress);
-        payable(_stakeAddress).transfer(_amount);
+        (bool res, ) =  payable (_stakeAddress).call{value: _amount}("");
+        if (!res) {
+            revert callFailed(_stakeAddress, _amount);
+        }
+        // payable(_stakeAddress).transfer(_amount);
         _stake[msg.sender] += _amount;
         emit LogIncStake(msg.sender, _amount);
     }

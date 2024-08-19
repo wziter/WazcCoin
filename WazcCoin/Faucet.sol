@@ -27,8 +27,4 @@ contract Faucet {
         requestedAddress[msg.sender] = true;
     }
 
-    function getWazcCoinBalance() external view returns (uint256){  
-        return WazcCoin(wazcAddress).balanceOf(address(this));
-    }
-
 }
