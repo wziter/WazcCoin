@@ -4,6 +4,7 @@ pragma solidity ^0.8.20;
 contract StakeManageETH {
     event LogReceive(address account, uint256 amount);
     event LogTrans(address account, uint256 amount);
+    
     receive() external payable { 
         emit LogReceive(msg.sender, msg.value);
     }

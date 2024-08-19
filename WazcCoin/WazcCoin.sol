@@ -6,21 +6,23 @@ import "./StakeManageETH.sol";
 
 contract WazcCoin is ERC20 {
     address private _stakeAddress;
-    constructor(address stakeManageAddr) ERC20("WazcCoin", "WAZC", 18){
-        _stakeAddress = stakeManageAddr;
-    }
-
+   
     mapping (address => uint256) private _stake;
 
-    uint64 constant STAKEVALUE = 1 ether;
-    uint8 constant MintCoinNumber = 10;
-    
+    uint64 constant private STAKEVALUE = 1 ether;
+    uint32 constant private MintCoinNumber = 1000; // 1 ether equals 1000 WAZC
+    uint8 constant private DECIMAL = 3;
+
     event LogStakeAddress(address addr);
-    
-    error notEnoughStake(uint256 amount);
-    error notEnoughValue(uint256 value, uint256 amount);
     event LogIncStake(address account, uint256 amount);
     event LogDescStake(address account, uint256 amount);
+
+    error notEnoughStake(uint256 amount);
+    error notEnoughValue(uint256 value, uint256 amount);
+
+    constructor(address stakeManageAddr) ERC20("WazcCoin", "WAZC", DECIMAL){
+        _stakeAddress = stakeManageAddr;
+    }
 
     modifier checkStake() {
         if (_stake[msg.sender] < STAKEVALUE) {
